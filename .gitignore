@@ -129,4 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+
+# obsidian笔记文件，git rm -r . --cached
 .obsidian
