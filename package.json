@@ -1,0 +1,23 @@
+{
+  "name": "z0_note",
+  "version": "1.0.0",
+  "description": "笔者用过不少md笔记软件，但是多少都有些不符合自己需求的地方，不如自己开发一个真正适合自己的",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mo0rain/Z0_Note.git"
+  },
+  "author": "mo0rain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mo0rain/Z0_Note/issues"
+  },
+  "homepage": "https://github.com/mo0rain/Z0_Note#readme",
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}
