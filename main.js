@@ -1,86 +1,58 @@
-// 动态加载
-// require('electron-nice-auto-reload')({
-//   rootPath: process.cwd(),
-//   rules: [
-//       {
-//           // run lessc while style.less file is changed
-//           // and this script will change the style.css
-//           // hence reload all windows
-//           action: 'script',
-//           target: 'style\\.less',
-//           // lessc src/css/style.less src/css/style.css
-//           script: 'npm run less'
-//       },
-//       {
-//           // relaunch the app while main process related js files
-//           // were changed
-//           action: 'app.relaunch',
-//           target: 'preload\\.js|main\\.js'
-//       }
-//   ],
-//   ignored: /node_modules/,
-//   log: true,
-//   devToolsReopen: true
-// })
+const {app , BrowserWindow, Menu } = require('electron')
+// var electron = require('electron')
+
+// var app = electron.app //应用
+// var BrowserWindow = electron.BrowserWindow //窗口引用
+
+var mainWindow = null // 声明要打开的主窗口
 
 
-const {
-  app,
-  BrowserWindow
-} = require('electron')
-const path = require('path')
-
-function createWindow() {
-  const win = new BrowserWindow({
-    // x:
-    // y:
-    show: false, //
-    width: 1000, // 宽度
-    height: 800, // 高度
-    icon: "logo.ico",
-    // frame: false,
-
-    // maxHeight: 500,
-    // maxWidth: 500,
-    // minHeight: 500,
-    // minWidth: 500,
-    // resizable: false
-
-
+app.on('ready', () => {
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    // frame: true,
+    // show: false,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-      // __dirname 当前目录
+      nodeIntegration: true, //文件的读取
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   })
+  
+  let menubar = [
+    {
+      label: '文件',
+      submenu: [
+        {
+          label: "打开文件",
+          click(){
+            console.log("打开文件")
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: "关闭文件"
+        },
+        {
+          label: "关于",
+          role: "about"
+        },
+      ]
+    },
+    {label: '编辑'},
+    {label: '选择'},
+  ]
+  let menu = Menu.buildFromTemplate(menubar)
+  Menu.setApplicationMenu(menu)
 
-  // 先内容加载
-  win.loadFile('index.html')
-  win.on("ready-to-show", () => {
-    win.show()
-  })
+  require('@electron/remote/main').initialize()
+  require('@electron/remote/main').enable(mainWindow.webContents);
+  mainWindow.loadFile('index.html')
 
-
-
-}
-
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('ready', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
+  mainWindow.on('close', () => {
+    mainWindow = null
   })
 })
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-/*
-
-
-
-
-*/

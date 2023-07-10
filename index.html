@@ -4,14 +4,76 @@
 <head>
   <meta charset="UTF-8" />
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content: https://ssl.gstatic.com; media-src * blob: 'self' http://* 'unsafe-inline' 'unsafe-eval'; style-src * 'self' 'unsafe-inline';">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Z0_Note!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box{
+      width: 100%;
+      /* height: 400px; */
+      overflow: hidden;
+      background-color: seashell;
+    }
+    .bar {
+      /* float: left; */
+      height: 40px;
+      box-shadow: 0 1 5px 0px #333;
+      border-bottom: 1px solid #ccc;
+    }
+    .titleBar{
+      width: 190px;
+      float: left;
+      height: 40px;
+      margin-left: 10px;
+    }
+    .windowTool{
+      float: right;
+      width: 600px;
+      height: 40px;
+
+    }
+    .windowTool div{
+      float: right;
+      margin-left: 20px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="box">
+    <div class="bar">
+      <div class="titleBar">
+        <div class="logo"></div>
+        <div class="title"></div>
+      </div>
+
+      <div class="windowTool">
+        <div class="close">
+          <i class="fa fa-window-close-o" aria-hidden="true"></i>
+        </div>
+        <div class="maxsize">
+          <i class="fa fa-window-maximize" aria-hidden="true"></i>
+        </div>
+        <div class="minsize">
+          <i class="fa fa-minus" aria-hidden="true"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <h1>Hello from Electron renderer!</h1>
   <p>👋</p>
+
+  <button id="btn1">点击按钮1122</button>
+
+  <script src="index.js"></script>
+
 </body>
 
 </html>
